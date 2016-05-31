@@ -1,0 +1,19 @@
+# Include Misc files
+include README.rst
+include LICENSE
+
+# inlcude templatesc
+recursive-include elasticsearch/templates *
+
+# include static js files
+recursive-include elasticsearch/static/js *
+
+# include static css files
+recursive-include elasticsearch/static/css *
+
+# recursive-include tests/static/css *
+
+# include docs
+recursive-include docs *
+
+
