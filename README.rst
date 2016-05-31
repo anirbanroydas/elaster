@@ -36,13 +36,13 @@ elaster is an in-app full-text Search Engine based on Elasticsearch which can be
 
 It uses the `Elasticsearch <https://www.elastic.co/products/elasticsearch>`_  to implement the real time full text search functionality. **Elasticsearch** is a search server based on `Lucene <http://lucene.apache.org/>`_. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is released as open source under the terms of the Apache License. Elasticsearch is the most popular enterprise search engine followed by `Apache Solr <https://en.wikipedia.org/wiki/Apache_Solr>`_, also based on Lucene.
 
-For the website, the connection is created using the `sockjs <https://github.com/sockjs/sockjs-client>`_ protocol. **SockJS** is implemented in many languages, primarily in Javascript to talk to the servers in real time, which tries to create a duplex bi-directional connection between the **Client(browser)** and the **Server**. Ther server should also implement the **sockjs** protocol. Thus using the  `sockjs-tornado <https://github.com/MrJoes/sockjs-tornado>`_ library which exposes the **sockjs** protocol in `Tornado <http://www.tornadoweb.org/>`_ server.
+A website example is given as builtin. For the website , the connection is created using the `sockjs <https://github.com/sockjs/sockjs-client>`_ protocol. **SockJS** is implemented in many languages, primarily in Javascript to talk to the servers in real time, which tries to create a duplex bi-directional connection between the **Client(browser)** and the **Server**. Ther server should also implement the **sockjs** protocol. Thus using the  `sockjs-tornado <https://github.com/MrJoes/sockjs-tornado>`_ library which exposes the **sockjs** protocol in `Tornado <http://www.tornadoweb.org/>`_ server.
 
 It first tries to create a `Websocket <https://en.wikipedia.org/wiki/WebSocket>`_ connection, and if it fails then it fallbacks to other transport mechanisms, such as **Ajax**, **long polling**, etc. After the connection is established, the tornado server**(sockjs-tornado)** connects to **Mosquitto** via MQTT protocol using the **MQTT Python Client Library**, `paho-mqtt <https://pypi.python.org/pypi/paho-mqtt/>`_. 
 
 Thus the connection is *web-browser* to *tornado* to *mosquitto* and vice versa.
 
-For other app(Android, iOS), use any android, ioS client library to connect to the elaster server. This software provides the website example builtin. Using command line elaster, you start the elaster website example. But to use it in your person app(Anroid, iOS) or web app, use elaster as a general server.
+For any other **app (Android, iOS)**, use any android, iOS client library to connect to the elaster server. This software provides the website example builtin. Using command line ``elaster --example=webapp``, you start the elaster website example. But to use it in your person app(Anroid, iOS) or web app, use elaster as a general server.
 
 
 
@@ -50,7 +50,7 @@ Technical Specs
 ----------------
 
 
-:sockjs-client: Advanced Websocket Javascript Client
+:sockjs-client (optional): Advanced Websocket Javascript Client used in **webapp example**
 :Tornado: Async Python Web Library + Web Server
 :sockjs-tornado: SockJS websocket server implementation for Tornado
 :Elasticsearch: A document store search engine based on Lucene
@@ -79,8 +79,8 @@ Prerequisites
 
 1. python 2.7+
 2. tornado
-3. sockjs-tornado
-4. sockjs-client
+3. sockjs-tornado 
+4. sockjs-client (optional, just for example webapp)
 5. elasticsearch-py (python low-level client library for Elasticsearch)
 6. elasticsearch-dsl (python high-level client library for Elasticsearch)
 7. Elasticsearch (The search-engine)
@@ -189,11 +189,14 @@ After having installed elaster, just run the following commands to use it:
   2. *For* ``Ubuntu/LInux`` *Users*
   ::
 
+          # Go inside the elasticsearch extracted directory
+          $ cd elasticsearch-2.3.0
+
           # start normally
-          $ elasticsearch
+          $ bin/elasticsearch
 
           # If you want to run in background
-          $ elasticsearch -d 
+          $ bin/elasticsearch -d 
 
 
 
@@ -205,12 +208,18 @@ After having installed elaster, just run the following commands to use it:
   - **Options**
 
     :--port: Port number where the elaster search engine will start
+    :--example: Example webapp to play with the server
 
 
   - **Example**
     ::
 
+          # Starting the server
           $ elaster --port=9191
+
+          # Starting the server with the example webapp
+          $ elaster --port=9191 --example=webapp
+
 
   
 * **Stop elaster**
