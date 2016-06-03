@@ -3,7 +3,9 @@ elaster
 
 An in-app full-text Search Engine using Elasticsearch (a document store search engine based on Lucene), tornado as web server, sockjs in client(browser) side javascript library, sockjs-tornado as sockjs implementation on server side and elasticsearch-py & elasticsearch-dsl as elasticsearch python client library.
 
-**NOTE :** Still in developement. Not ready for release. Info added prior just for record purpose. 
+**NOTE :** Still in developement. Not ready for release. Info added prior just for record purpose.
+
+**NOTE :** Meanwhile, you can check the *Example - Webapp* images and static codes for an overview. 
 
 Documentation
 --------------
