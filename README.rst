@@ -1,7 +1,7 @@
 elaster
 ========
 
-An in-app full-text Search Engine using Elasticsearch (a document store search engine based on Lucene, tornado as web server, sockjs in client(browser) side javascript library, sockjs-tornado as sockjs implementation on server side and elasticsearch-py & elasticsearch-dsl as elasticsearch python client library.
+An in-app full-text Search Engine using Elasticsearch (a document store search engine based on Lucene), tornado as web server, sockjs in client(browser) side javascript library, sockjs-tornado as sockjs implementation on server side and elasticsearch-py & elasticsearch-dsl as elasticsearch python client library.
 
 
 Documentation
@@ -17,15 +17,19 @@ Project Home Page
 
 
 
-Details
---------
+Example - Webapp
+-----------------
+
+* **Welcome Page**
+
+.. image:: img1.png 
 
 
-:Author: Anirban Roy Das
-:Email: anirban.nick@gmail.com
-:Copyright(C): 2016, Anirban Roy Das <anirban.nick@gmail.com>
+* **Select app type**
 
-Check ``elaster/LICENSE`` file for full Copyright notice.
+.. image:: img2.png 
+
+
 
 
 
@@ -65,6 +69,8 @@ Features
 * Search Engine
 * in-app (Androi, iOS, website)
 * Use as a standalone server or as a python library
+* Suggestion based search 
+* Autocomplete based search
 
 
 
@@ -229,6 +235,9 @@ After having installed elaster, just run the following commands to use it:
   Click ``Ctrl+C`` to stop the server.
 
 
+* **More Details** 
+
+  Please follow the documentation for more usage details. Documentation link is `this <http://elaster.readthedocs.io/en/latest/>`_.
 
 Todo
 -----
