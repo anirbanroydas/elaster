@@ -12,7 +12,7 @@ import tornado.httpserver
 import tornado.web
 from tornado.options import define, options
 import logging
-import os.path
+import os
 from elasticsearch import Elasticsearch 
 
 from urls import urls
@@ -22,7 +22,7 @@ from elaster.apps.elasticsearch.searchEngine import ElasticsearchClient
 
 define("port", default=9091, help="run on the given port", type=int)
 define("example", default=None, help='the example app to run in elaster server', type=str)
-define("data-path", default=None, help='the path to data to be indexed into elasticsearch for searching over it', type=str)
+define("datapath", default=None, help='the path to data to be indexed into elasticsearch for searching over it', type=str)
 
 
 LOGGER = logging.getLogger(__name__)
@@ -82,13 +82,24 @@ class Application(tornado.web.Application):
 
         """ 
 
-        # //Todos
-        # 
-        with open(path, 'rb') as f:
-            data = f.read()
-            index = path 
-            ElasticsearchClient.prepare_index(self.es_conn, index)
-            ElasticsearchClient.index_bulk(self.es_conn, index, data)
+        
+        if os.path.isfile(path): 
+            if path.endswith('.json'): 
+                    with open(path, 'rb') as f:
+                        data = f.read()
+                        index = f[:-5] 
+                        ElasticsearchClient.prepare_index(self.es_conn, index)
+                        ElasticsearchClient.index_bulk(self.es_conn, index, data)
+
+        else:
+            for f in os.listdir(path): 
+                if os.path.isfile(f): 
+                    if f.endswith('.json'): 
+                        with open(f, 'rb') as f:
+                            data = f.read()
+                            index = f[:-5] 
+                            ElasticsearchClient.prepare_index(self.es_conn, index)
+                            ElasticsearchClient.index_bulk(self.es_conn, index, data)
          
         
     
@@ -105,7 +116,7 @@ def main():
     """ 
 
     tornado.options.parse_command_line()
-    app = Application(example=options.example, options.data-path)
+    app = Application(example=options.example, data_path=options.datapath)
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
 
