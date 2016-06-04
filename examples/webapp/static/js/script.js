@@ -36,7 +36,6 @@ $(document).ready(function() {
 
         e.preventDefault();
 
-        disabled = false;
         app_type = $(this).text();
 
         console.log('search type : ', app_type);
@@ -45,11 +44,13 @@ $(document).ready(function() {
         {
             app_type = "Select App Type";
             search = false;
+            disabled = true;
         }
         else
         {
             var i = app_type.indexOf('Eg:');
             app_type = app_type.substring(0,i);
+            disabled = false;
         }
 
         console.log('App type : ', app_type);
@@ -67,13 +68,13 @@ $(document).ready(function() {
             
                 connect();
             } 
-            else 
-            {
-                console.log('insdie conn !== null');
+            // else 
+            // {
+            //     console.log('insdie conn !== null');
             
-                disconnect();
-                connAgain = 1;
-            }
+            //     disconnect();
+            //     connAgain = 1;
+            // }
 
         }
         
@@ -127,7 +128,7 @@ $(document).ready(function() {
             console.log('insdie conn.onopen()');
         
             // send first msg to websocket
-            sendmsg(stage='start', msg=app[app_type]);
+            sendmsg(index=null, stage='start', msg=null, example='webapp');
 
 
         };
@@ -146,19 +147,19 @@ $(document).ready(function() {
             {
                 console.log('insdie msg_type === suggestion');
         
-                handleSuggestion(m);
+                handleSuggestion(m.msg);
             } 
             else if (msg_type === 'in-app')
             {
                 console.log('insdie msg_type === in-app');
         
-                handleInApp(m);
+                handleInApp(m.msg);
             }
             else if (msg_type === 'data')
             {
                 console.log('insdie msg_type === data');
         
-                handleData(m);
+                handleData(m.msg);
             }
         };
 
@@ -303,7 +304,6 @@ $(document).ready(function() {
                 console.log('inside val.lenthg !== 0');
 
                 $('.suggestion_row').show();
-                // sendmsg(stage='msg', msg=val);
             }
         }
 
@@ -367,7 +367,7 @@ $(document).ready(function() {
 
                 $('.suggestion_row').show();
                 
-                sendmsg(stage='msg', msg=val);
+                sendmsg(index=app[app_type], stage='search', msg=val, example=null);
                 
             }
             else
@@ -376,7 +376,7 @@ $(document).ready(function() {
 
                 // remove previous suggestion list
                 $sbox.empty();
-                
+
                 $('.suggestion_row').hide();
             }       
 
@@ -448,7 +448,7 @@ $(document).ready(function() {
 
         var v = $('.search_box input').val();
 
-        sendmsg(stage='msg', msg=v);
+        sendmsg(index=app[app_type], stage='search', msg=v, example=null);
 
         console.log('RETURNING TIME -> diabled : '+disabled+' dis : '+dis);
 
@@ -460,14 +460,26 @@ $(document).ready(function() {
 
 
     // sends the actual msg after JSONifying it to the connection via conn.send()
-    function sendmsg(stage, msg) {
+    function sendmsg(index, stage, msg, example) {
         console.log('insdie sendmsg()');
 
         var newmsg = {
-            'msg': msg,
-            'stage': stage
+            'stage': stage;
         };
         
+        if (index !== null)
+        {
+            newmsg['index'] = index;
+        }
+        if (msg !== null)
+        {
+            newmsg['msg'] = msg;
+        }
+        if (example !== null)
+        {
+            newmsg['example'] = example;
+        }
+
         
         var res = JSON.stringify(newmsg);
 
