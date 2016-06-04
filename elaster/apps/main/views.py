@@ -99,13 +99,10 @@ class SearchSockjsHandler(SockJSConnection):
 
         # Initialize new ElasticSearch connection client object for this websocket.
         # call with default values, also send the websocket_type to constructore
-        self.es_client = ElasticsearchClient(conn=self.application.es_conn, websocket_type='sockjs')
+        self.es_client = ElasticsearchClient(conn=self.application.es_conn)
         
         # Assign websocket object to a elasticsearch connection object.
         self.es_client.websocket = self
-        
-        # connect to elastic
-        self.es_client.start()
 
 
 
@@ -139,8 +136,9 @@ class SearchSockjsHandler(SockJSConnection):
         msg = res['msg'] 
         index = res['index']
 
-        self.es_client.search(index, msg)
+        result = self.es_client.search(index, msg)
 
+        self.send(result)
 
 
     
@@ -172,7 +170,7 @@ class SearchSockjsHandler(SockJSConnection):
 
 
 # Handler for Websocket Connections for general websockets
-class SearchHandler(tornado.websocket.WebsocketHandler):
+class SearchHandler(tornado.websocket.WebSocketHandler):
     """ Websocket Handler implementing the Tornado websocket WebsocketHandler Class which will
     handle the websocket connections.
     """
@@ -195,13 +193,10 @@ class SearchHandler(tornado.websocket.WebsocketHandler):
 
         # Initialize new ElasticSearch connection client object for this websocket.
         # call with default values, also send the websocket_type to constructore
-        self.es_client = ElasticsearchClient(conn=self.application.es_conn, websocket_type='tornado')
+        self.es_client = ElasticsearchClient(conn=self.application.es_conn)
         
         # Assign websocket object to a elasticsearch connection object.
         self.es_client.websocket = self
-        
-        # connect to elastic
-        self.es_client.start()
 
 
 
@@ -236,8 +231,9 @@ class SearchHandler(tornado.websocket.WebsocketHandler):
         index = res['index']
         msg = res['msg']
 
-        self.es_client.search(index, msg)
+        result = self.es_client.search(index, msg)
 
+        self.write_message(result)
 
 
     
