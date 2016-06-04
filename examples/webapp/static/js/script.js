@@ -68,13 +68,6 @@ $(document).ready(function() {
             
                 connect();
             } 
-            // else 
-            // {
-            //     console.log('insdie conn !== null');
-            
-            //     disconnect();
-            //     connAgain = 1;
-            // }
 
         }
         
@@ -128,7 +121,7 @@ $(document).ready(function() {
             console.log('insdie conn.onopen()');
         
             // send first msg to websocket
-            sendmsg(index=null, stage='start', msg=null, example='webapp');
+            // sendmsg(index=null, stage='start', msg=null, example='webapp');
 
 
         };
@@ -177,8 +170,9 @@ $(document).ready(function() {
                 if (disconn === 0) 
                 {
                     console.log('insdie disconn === 0');
+                    console.log('serverUnavailable');
 
-                    serverUnavailable();
+                    // serverUnavailable();
                 } 
                 else 
                 {
@@ -195,8 +189,8 @@ $(document).ready(function() {
             else if (errorconn === 1) 
             {
                 console.log('insdie errorconn === 1');
+                console.log('serverError');
 
-                serverError();
                 errorconn = 0;
             }
             
@@ -367,7 +361,7 @@ $(document).ready(function() {
 
                 $('.suggestion_row').show();
                 
-                sendmsg(index=app[app_type], stage='search', msg=val, example=null);
+                sendmsg(index=app[app_type], msg=val);
                 
             }
             else
@@ -448,7 +442,7 @@ $(document).ready(function() {
 
         var v = $('.search_box input').val();
 
-        sendmsg(index=app[app_type], stage='search', msg=v, example=null);
+        sendmsg(index=app[app_type], msg=v);
 
         console.log('RETURNING TIME -> diabled : '+disabled+' dis : '+dis);
 
@@ -460,12 +454,10 @@ $(document).ready(function() {
 
 
     // sends the actual msg after JSONifying it to the connection via conn.send()
-    function sendmsg(index, stage, msg, example) {
+    function sendmsg(index, msg) {
         console.log('insdie sendmsg()');
 
-        var newmsg = {
-            'stage': stage;
-        };
+        var newmsg = {};
         
         if (index !== null)
         {
@@ -474,10 +466,6 @@ $(document).ready(function() {
         if (msg !== null)
         {
             newmsg['msg'] = msg;
-        }
-        if (example !== null)
-        {
-            newmsg['example'] = example;
         }
 
         
