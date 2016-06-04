@@ -29,7 +29,7 @@ AUTHOR = 'Anirban Roy Das'
 
 EMAIL = 'anirban.nick@gmail.com'
 
-KEYWORDS = "in-app search engine elasticserach using sockjs websocket client tornado backend with sockjs-tornado library elasticsearch python client elasticsearch-py elasticsearch-dsl"
+KEYWORDS = "in-app search engine elasticserach using sockjs websocket client tornado backend with sockjs-tornado library elasticsearch python client elasticsearch-py "
 
 CLASSIFIERS = [
 
@@ -62,7 +62,6 @@ CLASSIFIERS = [
 INSTALL_REQUIRES = ["tornado >= 2.2.1",
                     "sockjs-tornado",
                     "elasticsearch >= 2.0.0",
-                    "elasticsearch-dsl >= 2.0.0",
                     "setuptools >= 0.7.0", ]
 
 EXTRAS_REQUIRE = {}
@@ -71,11 +70,11 @@ PACKAGE_DATA = {
     # data files need to be listed both here (which determines what gets
     # installed) and in MANIFEST.in (which determines what gets included
     # in the sdist tarball)
-    "elaster": [    
-                "static/css/*.css",
-                "static/js/*.js",
-                "templates/*.html",
-            ],
+    # "examples/webapp": [    
+    #             "static/css/*.css",
+    #             "static/js/*.js",
+    #             "*.html",
+    #         ],
 
 }
 
@@ -105,7 +104,7 @@ setup(
 
     description='An in-app search engine using Elasticsearch (a document store search engine based on Lucene),\
                 and using sockjs javascript library on client(browser) side, sockjs-tornado, tornado as backend,\
-                with Elasticsearch being the main document store and elasticsearch-py & elasticsearch-dsl (elasticsearch python client library)',
+                with Elasticsearch being the main document store and elasticsearch-py (elasticsearch python client library)',
     long_description=LONG_DESCRIPTION,
 
     # The project's main homepage.
