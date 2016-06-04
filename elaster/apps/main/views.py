@@ -97,6 +97,16 @@ class SearchSockjsHandler(SockJSConnection):
         # adding new websocket connection to global websocketParcticipants set
         websocketParticipants.add(self)
 
+        # Initialize new ElasticSearch connection client object for this websocket.
+        # call with default values, also send the websocket_type to constructore
+        self.es_client = ElasticsearchClient(conn=self.application.es_conn, websocket_type='sockjs')
+        
+        # Assign websocket object to a elasticsearch connection object.
+        self.es_client.websocket = self
+        
+        # connect to elastic
+        self.es_client.start()
+
 
 
 
@@ -111,17 +121,9 @@ class SearchSockjsHandler(SockJSConnection):
 
         The message structure is:
 
-        Eg: 
+        Eg:
 
         message = {
-                    'stage' : 'start',
-                    'example' : 'webapp' or None
-        }
-
-        Eg2:
-
-        message = {
-                    'stage' : 'search',
                     'index' : 'photo',
                     'msg'   : 'cath'
         }
@@ -134,30 +136,10 @@ class SearchSockjsHandler(SockJSConnection):
 
         # print '[SearchSockjsHandler] received msg : ', res
 
-        stage = res['stage']
+        msg = res['msg'] 
+        index = res['index']
 
-        if stage == 'start':
-            LOGGER.info('[SearchSockjsHandler] Message Stage : START')
-
-            example = res['example']
-
-            # Initialize new ElasticSearch connection client object for this websocket.
-            # call with default values, also send the websocket_type to constructore
-            self.es_client = ElasticsearchClient(websocket_type='sockjs', example=example)
-            
-            # Assign websocket object to a elasticsearch connection object.
-            self.es_client.websocket = self
-            
-            # connect to elastic
-            self.es_client.start()
-
-        elif stage == 'search':
-            # LOGGER.info('[SearchSockjsHandler] Sending the search query to Elasticsearch')
-
-            index = res['index']
-            msg = res['msg']
-
-            self.es_client.search(index, msg)
+        self.es_client.search(index, msg)
 
 
 
@@ -211,6 +193,16 @@ class SearchHandler(tornado.websocket.WebsocketHandler):
         # adding new websocket connection to global websocketParcticipants set
         websocketParticipants.add(self)
 
+        # Initialize new ElasticSearch connection client object for this websocket.
+        # call with default values, also send the websocket_type to constructore
+        self.es_client = ElasticsearchClient(conn=self.application.es_conn, websocket_type='tornado')
+        
+        # Assign websocket object to a elasticsearch connection object.
+        self.es_client.websocket = self
+        
+        # connect to elastic
+        self.es_client.start()
+
 
 
 
@@ -228,15 +220,6 @@ class SearchHandler(tornado.websocket.WebsocketHandler):
         Eg: 
 
         message = {
-                    'stage' : 'start',
-                    'index' : None,
-                    'msg'   : None
-        }
-
-        Eg2:
-
-        message = {
-                    'stage' : 'search',
                     'index' : 'photo',
                     'msg'   : 'cath'
         }
@@ -250,28 +233,10 @@ class SearchHandler(tornado.websocket.WebsocketHandler):
 
         # print '[SearchHandler] received msg : ', res
 
-        stage = res['stage']
-        
-        if stage == 'start':
-            LOGGER.info('[SearchHandler] Message Stage : START')
+        index = res['index']
+        msg = res['msg']
 
-            # Initialize new ElasticSearch connection client object for this websocket.
-            # call with default values, also send the websocket_type to constructore
-            self.es_client = ElasticsearchClient(websocket_type='tornado')
-            
-            # Assign websocket object to a elasticsearch connection object.
-            self.es_client.websocket = self
-            
-            # connect to elasticsearch
-            self.es_client.start()
-
-        else:
-            # LOGGER.info('[SearchHandler] Sending search query to elastisearch')
-
-            index = res['index']
-            msg = res['msg']
-
-            self.es_client.search(index, msg)
+        self.es_client.search(index, msg)
 
 
 
