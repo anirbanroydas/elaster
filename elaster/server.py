@@ -47,7 +47,10 @@ class Application(tornado.web.Application):
 
         """ 
 
+        # connect to  Elasticsearch using elasticsearch python client library's Elasticsearch method
         self.es_conn = Elasticsearch()
+
+
 
         if example is not None:
             tpath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'examples', example))
@@ -60,7 +63,7 @@ class Application(tornado.web.Application):
         
         else: 
             # create the dataset index from the give path 
-            self._createDataIndex(data_path)
+            self._createDataIndex(self.es_conn, data_path)
 
         tornado.web.Application.__init__(self, urls, **settings)
 
@@ -96,10 +99,10 @@ class Application(tornado.web.Application):
         with open(path, 'rb') as f:
             data = f.read()
             index = path 
-        
+            ElasticsearchClient.prepare_index(self.es_conn, index)
+            ElasticsearchClient.index_bulk(self.es_conn, index, data)
          
-        ElasticsearchClient.prepare_index(index)
-        ElasticsearchClient.index_bulk(index, data)
+        
     
 
 
@@ -110,7 +113,7 @@ def main():
     The main methos starts the server by accepting the Application object.
     It starts the server at the given port extracted from options.port otherwise it
     takes a default value of 9091.
-
+    
     """ 
 
     tornado.options.parse_command_line()
@@ -138,5 +141,10 @@ def main():
         LOGGER.info("\n[server.main] Elaster server Stopped.")
 
 
+
+
+
+
 if __name__ == "__main__":
     main()
+
