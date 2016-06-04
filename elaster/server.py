@@ -55,30 +55,18 @@ class Application(tornado.web.Application):
         if example is not None:
             tpath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'examples', example))
             spath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'examples', example, 'static'))
+            dpath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'test_example_datasets'))
             settings['template_path'] = tpath
             settings['static_path'] = spath
 
             # create the example dataset index with the created ElasticSearch conn
-            self._createExampleDataIndex(self.es_conn)
+            self._createDataIndex(self.es_conn, dpath)
         
         else: 
             # create the dataset index from the give path 
             self._createDataIndex(self.es_conn, data_path)
 
         tornado.web.Application.__init__(self, urls, **settings)
-
-
-    def _createExampleDataIndex(self, conn): 
-        """ 
-        Method to create the dataset for using in the example apps. 
-
-        :param  conn:   The elasticsearch connection object 
-        :type   conn:   elasticsearch.Elasticsearch 
-
-        """ 
-
-        # //Todo 
-    
 
 
     def _createDataIndex(self, path):
@@ -117,7 +105,7 @@ def main():
     """ 
 
     tornado.options.parse_command_line()
-    app = Application(example=options.example)
+    app = Application(example=options.example, options.data-path)
     http_server = tornado.httpserver.HTTPServer(app)
     http_server.listen(options.port)
 
