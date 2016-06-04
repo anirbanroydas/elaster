@@ -1,7 +1,7 @@
 elaster
 ========
 
-An in-app full-text Search Engine using Elasticsearch (a document store search engine based on Lucene), tornado as web server, sockjs in client(browser) side javascript library, sockjs-tornado as sockjs implementation on server side and elasticsearch-py & elasticsearch-dsl as elasticsearch python client library.
+An in-app full-text Search Engine using Elasticsearch (a document store search engine based on Lucene), tornado as web server, sockjs in client(browser) side javascript library, sockjs-tornado as sockjs implementation on server side and elasticsearch-py as elasticsearch python client library.
 
 **NOTE :** Still in developement. Not ready for release. Info added prior just for record purpose.
 
@@ -62,7 +62,6 @@ Technical Specs
 :sockjs-tornado: SockJS websocket server implementation for Tornado
 :Elasticsearch: A document store search engine based on Lucene
 :elasticsearch-py: Low-level elasticsearch python client
-:elasticsearch-dsl: High-Level elasticsearch python client (wrapper around the low-level elasticsearch-py)
 
 
 
@@ -91,8 +90,7 @@ Prerequisites
 3. sockjs-tornado 
 4. sockjs-client (optional, just for example webapp)
 5. elasticsearch-py (python low-level client library for Elasticsearch)
-6. elasticsearch-dsl (python high-level client library for Elasticsearch)
-7. Elasticsearch (The search-engine)
+6. Elasticsearch (The search-engine)
 
 
 Install
@@ -130,12 +128,8 @@ If above dependencies do not get installed by the above command, then use the be
 
          $ pip install elasticsearch
 
- **Step 5 - Install elasticsearch-dsl**
- ::
 
-        $ pip install elasticsearch-dsl
-
- **Step 7 - Install Elasticsearch**
+ **Step 5 - Install Elasticsearch**
  
  * *For* ``Mac`` *Users*
  
