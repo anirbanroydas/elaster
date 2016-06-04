@@ -45,7 +45,7 @@ Elaster Application
    
    :--port: Port number where the elaster search engine will start
    :--example: Example webapp to play with the server
-   :--data-path: Dirctory containing the datasets in json format or the json file path itself.
+   :--datapath: Dirctory containing the datasets in json format or the json file path itself.
    
    * **Example**
      :: 
@@ -57,10 +57,11 @@ Elaster Application
           $ elaster --port=9191 --example=webapp
 
           # Starting the server with custom dataset 
-          $ elaster --port --data-path=$HOME/project/xyz/data
+          $ elaster --port --datapath=$HOME/project/xyz/data
+          $ elaster --port --datapath=$HOME/project/xyz/data/photos.json
  
 
-**NOTE** Cannot use both --example and --data-path together, for --example, the dataset is automatically decided and indexed by the server itself.
+**NOTE** Cannot use both ``--example`` and ``--datapath`` together, for ``--example``, the dataset is automatically decided and indexed by the server itself.
 
              
 3. Stop mosquittoChat Server

@@ -66,7 +66,7 @@ If above dependencies do not get installed by the above command, then use the be
 
 
 
-   2. Brew Install Mosquitto
+   2. Brew Install Elasticsearch
    ::
 
          $ brew install elasticsearch
