@@ -11,5 +11,6 @@ recursive-include examples/webapp/static/js *
 # include static css files
 recursive-include exanples/webapp/static/css *
 
-
+# include requirements
+recursive-include requirements/requirement-*.txt
 
