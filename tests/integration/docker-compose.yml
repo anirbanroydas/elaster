@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+  elaster_integration_tester:
+    build: ../..
+    image: aroyd/elaster_integration_tester:${ELASTER_INTEGRATION_TEST_IMAGE_TAG:-latest}
+    environment:
+      ENV: INTEGRATION_TEST 
+    depends_on:
+      - elasticsearch
+  
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.0
+    environment:
+      http.host: "0.0.0.0"
+      transport.host: "127.0.0.1"
