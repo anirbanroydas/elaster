@@ -1,0 +1,4 @@
+tornado >= 2.2.1
+sockjs-tornado
+elasticsearch >= 2.0.0
+setuptools >= 0.7.0
