@@ -1,72 +1,97 @@
 Usage
 =====
 
-After having installed elaster, just run the following commands to use it:
-
-Elaster Server
------------------
+After having installed the above dependencies, and ran the **Optional** (If not using any CI Server) or **Required** (If using any CI Server) **CI Setup** Step, then just run the following commands to use it:
 
 
-1. *For* ``Mac`` *Users*
-::
-
-        # start normally
-        $ elasticsearch
-         
-        # If you want to run in background
-        $ elasticsearch -d 
-
-        # start using brew services (doesn't work with tmux, athough there is a fix, mentioned in one of the pull requests and issues)
-        $ brew services start elasticsearch
+You can run and test the app in your local development machine or you can run and test directly in a remote machine. You can also run and test in a production environment. 
 
 
-2. *For* ``Ubuntu/LInux`` *Users*
-::
+Run
+----
 
-        # Go inside the elasticsearch extracted directory
-        $ cd elasticsearch-2.3.0
 
-        # start normally
-        $ bin/elasticsearch
+The below commands will start everythin in development environment. To start in a production environment, suffix ``-prod`` to every **make** command.
 
-        # If you want to run in background
-        $ bin/elasticsearch -d
-           
-          
-Elaster Application
---------------------------
+For example, if the normal command is ``make start``, then for production environment, use ``make start-prod``. Do this modification to each command you want to run in production environment. 
 
-1. Start Server
-   ::          
-        
-        $ elaster [options]
-        
-2. Options    
-   
-   :--port: Port number where the elaster search engine will start
-   :--example: Example webapp to play with the server
-   :--datapath: Dirctory containing the datasets in json format or the json file path itself.
-   
-   * **Example**
-     :: 
-             
-          # Starting the server
-          $ elaster --port=9191
+**Exceptions:** You cannot use the above method for test commands, test commands are same for every environment. Also the  ``make system-prune`` command is standalone with no production specific variation (Remains same in all environments).
 
-          # Starting the server with the example webapp
-          $ elaster --port=9191 --example=webapp
+* **Start Applcation**
+  ::
 
-          # Starting the server with custom dataset 
-          $ elaster --port --datapath=$HOME/project/xyz/data
-          $ elaster --port --datapath=$HOME/project/xyz/data/photos.json
- 
+      $ make clean
+      $ make build
+      $ make start
 
-**NOTE** Cannot use both ``--example`` and ``--datapath`` together, for ``--example``, the dataset is automatically decided and indexed by the server itself.
+      # OR
 
-             
-3. Stop mosquittoChat Server
-   
-   Click ``Ctrl+C`` to stop the server.
+      $ docker-compose up -d
+
+
+    
+  
+* **Stop Application**
+  ::
+
+      $ make stop
+
+      # OR
+
+      $ docker-compose stop
+
+
+* **Remove and Clean Application**
+  ::
+
+      $ make clean
+
+      # OR
+
+      $ docker-compose rm --force -v
+      $ echo "y" | docker system prune
+
+
+* **Clean System**
+  ::
+
+      $ make system-prune
+
+      # OR
+
+      $ echo "y" | docker system prune
+
+
+
+
+Logging
+--------
+
+
+* To check the whole application Logs
+  ::
+
+      $ make check-logs
+
+      # OR
+
+      $ docker-compose logs --follow --tail=10
+
+
+
+* To check just the python app\'s logs
+  ::
+
+      $ make check-logs-app
+
+      # OR
+
+      $ docker-compose logs --follow --tail=10 identidock
+
+
+
+
+
 
 
 
