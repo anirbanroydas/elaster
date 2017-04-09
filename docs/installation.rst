@@ -52,25 +52,3 @@ Install
 
 
 
-
-
- 
-
-Travis Setup
-~~~~~~~~~~~~~~~~~
-
-These steps will encrypt your environment variables to secure your confidential data like api keys, docker based keys, deploy specific keys.
-::
-
-  $ make travis-setup
-
-
-
-Jenkins Setup
-~~~~~~~~~~~~~~~~~~~
-
-These steps will encrypt your environment variables to secure your confidential data like api keys, docker based keys, deploy specific keys.
-::
-
-  $ make jenkins-setup
-

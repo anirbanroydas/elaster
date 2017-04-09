@@ -18,3 +18,26 @@ After you run the setup commands, you will be presented with a number of secure 
 
 
 **IMPORTANT:** You have to run the ``travis-setup.sh`` script or the ``jenkins-setup.sh`` script in your local machine before deploying to remote server.
+
+
+
+
+ 
+
+Travis Setup
+~~~~~~~~~~~~~~~~~
+
+These steps will encrypt your environment variables to secure your confidential data like api keys, docker based keys, deploy specific keys.
+::
+
+  $ make travis-setup
+
+
+
+Jenkins Setup
+~~~~~~~~~~~~~~~~~~~
+
+These steps will encrypt your environment variables to secure your confidential data like api keys, docker based keys, deploy specific keys.
+::
+
+  $ make jenkins-setup
