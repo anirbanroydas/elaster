@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  identidock:
+  elaster:
     build: .
     image: ${DOCKER_REPO}:${DOCKER_IMAGE_DEV_TAG:-latest-dev}
     ports:
