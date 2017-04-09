@@ -11,10 +11,5 @@ recursive-include examples/webapp/static/js *
 # include static css files
 recursive-include exanples/webapp/static/css *
 
-# include example data sets
-recursive-include test_example_datasets *
-
-# include docs
-recursive-include docs *
 
 
