@@ -13,14 +13,6 @@ An in-app full-text Search Engine using Elasticsearch (a document store search e
 
 **NOTE :** Meanwhile, you can check the *Example - Webapp* images and static codes for an overview.
 
-
-Project Home Page
---------------------
-
-**Link :** https://pypi.python.org/pypi/elaster
-
-
-
 Example - Webapp
 -----------------
 
@@ -34,6 +26,11 @@ Example - Webapp
 .. image:: ../img2.png 
 
 
+Project Home Page
+--------------------
+
+**Link :** https://www.github.com/anirbanroydas/elaster
+
 
 
 
@@ -42,7 +39,7 @@ Details
 
 :Author: Anirban Roy Das         
 :Email: anirban.nick@gmail.com
-:Copyright(C): 2016, Anirban Roy Das <anirban.nick@gmail.com>
+:Copyright(C): 2017, Anirban Roy Das <anirban.nick@gmail.com>
 
 Check ``elaster/LICENSE`` file for full Copyright notice.
 
@@ -57,9 +54,10 @@ Documentation:
    overview
    features
    installation
+   ci_setup
    usage
    api
-   references
+   testing
 
 
 
