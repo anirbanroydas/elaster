@@ -59,12 +59,35 @@ CLASSIFIERS = [
 
 ]
 
-INSTALL_REQUIRES = ["tornado >= 2.2.1",
-                    "sockjs-tornado",
-                    "elasticsearch >= 2.0.0",
-                    "setuptools >= 0.7.0", ]
+INSTALL_REQUIRES = [
+    "tornado >= 2.2.1",
+    "sockjs-tornado",
+    "elasticsearch >= 2.0.0",
+    "setuptools >= 0.7.0"
+]
 
-EXTRAS_REQUIRE = {}
+
+TEST_REQUIRES = [
+    "pytest == 3.0.6",
+    "pytest-flask == 0.10.0",
+    "doubles == 1.2.1"
+]
+
+
+DEV_REQUIRES = [
+    "tox == 2.6.0",
+    "coverage == 4.3.4",
+    "pytest-cov == 2.4.0",
+    "coveralls == 1.1",
+
+] + TEST_REQUIRES
+
+
+EXTRAS_REQUIRE = {
+    'dev': DEV_REQUIRES,
+    'test': TEST_REQUIRES
+}
+
 
 PACKAGE_DATA = {
     # data files need to be listed both here (which determines what gets
@@ -142,6 +165,13 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require=EXTRAS_REQUIRE,
+
+    # List additional groups of dependencies here (e.g. development
+    # dependencies). You can install these using the following syntax,
+    # for example:
+    # $ pip install -e .
+    test_suite='tests',
+    tests_require=TEST_REQUIRES,
 
     # If set to True, this tells setuptools to automatically include
     # any data files it finds inside your package directories that
