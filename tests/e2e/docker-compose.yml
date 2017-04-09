@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+  elaster_e2e_tester:
+    build: ../..
+    image: aroyd/elaster_e2e_test:${ELASTER_E2E_TEST_IMAGE_TAG:-latest}
+    environment:
+      ENV: END_TO_END_TEST 
+    depends_on:
+      - elasticsearch
+  
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.0
+    environment:
+      http.host: "0.0.0.0"
+      transport.host: "127.0.0.1"
