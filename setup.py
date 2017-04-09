@@ -18,7 +18,7 @@ import os
 
 NAME = "elaster"
 
-VERSION = '1.0'
+VERSION = '1.1.0'
 
 
 PACKAGES = ["elaster", "elaster.apps", "elaster.apps.main", "elaster.apps.elasticsearch"]
